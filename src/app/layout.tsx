@@ -1,17 +1,42 @@
-import "./globals.css";
-import { Providers } from "./providers";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Meu App Next 15",
-  description: "NextAuth + API externa + Tema dark/light",
+import "./globals.css";
+
+import { Providers } from "@/app/providers";
+
+
+export const metadata: Metadata = {
+  title: "PetManager",
+  description:
+    "Sistema de gerenciamento para PetShop",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+
   return (
-    <html lang="pt-BR">
+
+    <html
+      lang="pt-BR"
+      suppressHydrationWarning
+    >
+
       <body>
-        <Providers>{children}</Providers>
+
+        <Providers>
+
+          {children}
+
+        </Providers>
+
       </body>
+
     </html>
+
   );
+
 }

@@ -1,40 +1,36 @@
 import NextAuth, { DefaultSession } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
   interface Session {
-    user?: {
+    user: {
       id: string;
+      empresaId: number;
+      perfil: string;
+      avatar: string;
+      accessToken?: string;
+      refreshToken?: string;
     } & DefaultSession["user"];
   }
 
   interface User {
     id: string;
+    empresaId: number;
+    perfil: string;
+    avatar: string;
+    accessToken?: string;
+    refreshToken?: string;
   }
 }
 
-export interface Selecao {
-  selId: number; 
-  selName: string; 
-  selTipo: string; 
-  selAvatar: string; 
-  selPntClass: number; 
-  selCrtYellow: number; 
-  selCrtRed: number; 
-  selGolPros: number; 
-  selGolCont: number; 
-  selEsqJogo: string; 
-  selGrpId: number; 
-  selAbreviacao: string; 
-  selStatus: string;
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    empresaId: number;
+    perfil: string;
+    avatar: string;
+    accessToken?: string;
+    refreshToken?: string;
+  }
 }
 
-export interface Grupo {
-  grpId: number;
-  grpEveId: number;
-  grpDescricao: string;
-  grpStatus: string;
-}
-
-export interface GrupoComSelecoes extends Grupo {
-  selecoes: Selecao[];
-}

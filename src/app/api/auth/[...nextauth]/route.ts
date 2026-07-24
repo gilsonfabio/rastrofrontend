@@ -32,6 +32,9 @@ export const authOptions: AuthOptions = {
             id: data.id,
             name: data.name,
             email: data.email,
+            empresaId: data.empresaId,
+            perfil: data.perfil,
+            avatar: data.avatar,
             accessToken: data.token,
             refreshToken: data.refreshToken,
           };
@@ -55,20 +58,26 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.accessToken = (user as any).accessToken;
-        token.refreshToken = (user as any).refreshToken;
+        token.empresaId = user.empresaId;
+        token.perfil = user.perfil;
+        token.avatar = user.avatar;
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
       }
+
       return token;
     },
 
     async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        (session.user as any).accessToken = token.accessToken;
-        (session.user as any).refreshToken = token.refreshToken;
-      }
+      session.user.id = token.id;
+      session.user.empresaId = token.empresaId;
+      session.user.perfil = token.perfil;
+      session.user.avatar = token.avatar;
+      session.user.accessToken = token.accessToken;
+      session.user.refreshToken = token.refreshToken;
+
       return session;
-    },
+    }
   },
 };
 
